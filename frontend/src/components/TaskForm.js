@@ -13,13 +13,15 @@ export const TaskForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors , isSubmitting },
     setValue,
   } = useForm();
   const navigate = useRouter();
   const params = useParams();
 
+
   const onSubmit = handleSubmit(async (data) => {
+    
     if (params.id) {
       await updateTask(params.id, data);
       toast.success("Tarea Actualizada", {
@@ -75,8 +77,12 @@ export const TaskForm = () => {
 
         {errors.description && <span className="text-red-500 mt-3">Este campo es requerido</span>}
 
-        <button className="bg-blue-400 p-3 rounded-lg block w-full mt-3 text-white font-semibold">
-          Guardar
+        <button
+          type="submit"
+          className={`bg-blue-400 p-3 rounded-lg block w-full mt-3 text-white font-semibold ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? 'Guardando...' : 'Guardar'}
         </button>
       </form>
 
