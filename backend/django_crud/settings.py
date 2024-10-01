@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -79,10 +80,9 @@ WSGI_APPLICATION = 'django_crud.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default='postgresql://django_crud_wrev_user:PK8343rvit1Yxakrr37X7TIgTBLjAVVc@dpg-crtlkl5ds78s73esri1g-a.oregon-postgres.render.com/django_crud_wrev' # usar un .env 
+    )
 }
 
 
