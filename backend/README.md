@@ -13,21 +13,21 @@ API basica para gestionar tareas, creada con Django y Django REST Framework. La 
 2. Dentro de la carpeta **backend** cree un entorno virtual.
 
 ```bash
-    python -m venv venv
-    source venv/bin/activate # Mac o linux
-    venv\Scripts\activate  # para Windows
+python -m venv venv
+source venv/bin/activate # Mac o linux
+venv\Scripts\activate  # para Windows
 ```
 
 3. Instala Django y DRF
 
 ```bash
-    pip install django djangorestframework
+pip install django djangorestframework
 ```
 
 4. Crear un nuevo proyecto Django
 
 ```bash
-    django-admin startproject django_crud .
+django-admin startproject django_crud .
 ```
 
 deberia ver algo similar a esto.
@@ -46,7 +46,7 @@ backend/
 5. Inicie el servidor de desarrollo
 
 ```bash
-    python manage.py runserver
+python manage.py runserver
 ```
 
 Debera ver la siguiente salida en la terminal
@@ -68,15 +68,13 @@ Debera ver la siguiente salida en la terminal
 6. Hagamos las migraciones a nuestra base de datos de desarrollo sqlite 
 
 ```bash
-   python manage.py migrate
-
+python manage.py migrate
 ```
 
 7. Creando la Api de tareas
 
 ```bash
-   python manage.py startapp tasks
-
+python manage.py startapp tasks
 ```
 
 esto crear un directorio
@@ -110,24 +108,21 @@ class Task(models.Model):
 
     def __str__(self):
         return self.title
-
 ```
 
 Agrega la app a settings.py:
 
 ```bash
-   INSTALLED_APPS = [
+INSTALLED_APPS = [
     ...,
     'tasks',
 ]
-
 ```
 
 Luego, realiza las migraciones:
 
 ```bash
-    python manage.py makemigrations
-    
+python manage.py makemigrations   
 ```
 
 Deberías ver algo similar a lo siguiente:
@@ -141,8 +136,7 @@ Migrations for 'tasks':
 ahora volvamos a ejecutar
 
 ```bash
-    python manage.py migrate
-    
+python manage.py migrate  
 ```
 
 esto aplicara los cambio en la base de datos
@@ -154,8 +148,7 @@ Creando un usuario administrador
 Primero, tendremos que crear un usuario que pueda iniciar sesión en el sitio de administración.
 
 ```bash
-   python manage.py createsuperuser
-
+python manage.py createsuperuser
 ```
 
 ```plaintext
@@ -163,15 +156,13 @@ Primero, tendremos que crear un usuario que pueda iniciar sesión en el sitio de
     Email address: admin@example.com
     Password: **********
     Password (again): *********
-    Superuser created successfully.
-    
-``` 
+    Superuser created successfully.   
+```
 
 inicie el servidor de desarrollo
 
 ```bash
-   python manage.py runserver
-
+python manage.py runserver
 ```
 
 ahora visita, [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/) e ingresa al sitio de administracion.
@@ -181,12 +172,11 @@ ahora visita, [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/) e ing
 dentro de tasks/admin.py edite:
 
 ```bash
-    from django.contrib import admin
+from django.contrib import admin
 
-    from .models import Task
+from .models import Task
 
-    admin.site.register(Task)
-
+admin.site.register(Task)
 ```
 
 ahora task debera mostrarse en sitio de administracion.
@@ -210,14 +200,14 @@ class TaskSerializer(serializers.ModelSerializer):
 dentro de views.py editelo:
 
 ```bash
-    from rest_framework import viewsets
-    from .serializer import TaskSerializer
-    from .models import Task
+from rest_framework import viewsets
+from .serializer import TaskSerializer
+from .models import Task
 
     # Create your views here.
-    class TaskView(viewsets.ModelViewSet):
-        serializer_class = TaskSerializer
-        queryset = Task.objects.all()
+class TaskView(viewsets.ModelViewSet):
+    serializer_class = TaskSerializer
+    queryset = Task.objects.all()
 ```
 
 12. urls de DFR
@@ -225,46 +215,43 @@ dentro de views.py editelo:
 Dentro de tasks crea un archivo llamado urls.py y editalo:
 
 ```bash
-    from django.urls import include, path
-    from rest_framework import routers  
-    from tasks import views
+from django.urls import include, path
+from rest_framework import routers  
+from tasks import views
 
-    router = routers.DefaultRouter()
-    router.register(r"tasks", views.TaskView, "tasks")
+router = routers.DefaultRouter()
+router.register(r"tasks", views.TaskView, "tasks")
 
-    urlpatterns = [
+urlpatterns = [
         path("api/v1/", include(router.urls)),
-    ]
+]
 ```
 
 13. incluir las rutas de tareas en el archivo principal del proyecto django_crud/urls.py.
 
 ```bash
-    from django.contrib import admin
-    from django.urls import path , include
+from django.contrib import admin
+from django.urls import path , include
 
-    urlpatterns = [
-        ...,
-        path('', include('tasks.urls'))
-    ]
-
+urlpatterns = [
+     ...,
+    path('', include('tasks.urls'))
+]
 ```
 
 14. incluir DFR en setting.py
 
 ```bash
-   INSTALLED_APPS = [
+INSTALLED_APPS = [
     ...,
     'rest_framework',
 ]
-
 ```
 
 Inicia el servidor de desarrollo:
 
 ```bash
-    python manage.py runserver
-
+python manage.py runserver
 ```
 
 Ahora puedes probar Su API accediendo a [http://127.0.0.1:8000/api/v1/tasks](http://127.0.0.1:8000/api/v1/tasks)
