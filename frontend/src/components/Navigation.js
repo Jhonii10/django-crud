@@ -7,9 +7,9 @@ export const Navigation = () => {
       <Link href="/tasks">
         <h1 className="font-bold text-3xl mb-4">Tasks App</h1>
       </Link>
-      <button className="bg-blue-400 p-3 rounded-lg text-white font-semibold">
-        <Link href="/tasks-create">Nueva tarea</Link>
-      </button>
+      <Link href="/tasks-create " className="bg-blue-400 p-3 rounded-lg text-white font-semibold">
+        Nueva tarea
+      </Link>
     </div>
   )
 }
