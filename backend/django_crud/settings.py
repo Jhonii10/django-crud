@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'django_crud.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://django_crud_wrev_user:PK8343rvit1Yxakrr37X7TIgTBLjAVVc@dpg-crtlkl5ds78s73esri1g-a.oregon-postgres.render.com/django_crud_wrev' # usar un .env 
+        default='postgresql://django_crud_zph5_user:HMM67aDoMy6Z76HpZJLcsve27txQjAgI@dpg-csr71l52ng1s73f6lfdg-a.oregon-postgres.render.com/django_crud_zph5' # usar un .env 
     )
 }
 
